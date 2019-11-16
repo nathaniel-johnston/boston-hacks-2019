@@ -1,0 +1,16 @@
+#include <Servo.h>
+
+Servo servo;
+
+void setup() {
+  Serial.begin(9600);
+  servo.attach(9);
+}
+
+void loop() {
+  while(!Serial.available());
+  
+  int rotationAmt = Serial.read() - 48;
+
+  servo.write(rotationAmt*60);
+}
