@@ -5,12 +5,8 @@ import os
 class DBConnection(object):
 
     def __init__(self, params):
-        if os.environ.get('GAE_ENV') == 'standard':
-            host = '/cloudsql/{}'.format(params["connection_name"])
-        else:
-            host = "localhost"
         try:
-            self.conn = psycopg2.connect(host=host, user=params["user"], password=params["password"],
+            self.conn = psycopg2.connect(host=params["host"], user=params["user"], password=params["password"],
                                          dbname=params["database"])
         except:
             print("Unable to connect to the database")

@@ -1,10 +1,10 @@
 import requests
 
 
-hostname = 'http://127.0.0.1:8000'
+hostname = 'http://104.196.204.181:8080'
 
 
-# print(requests.get('{}/pills/1'.format(hostname)).json())
+# print(requests.get('http://104.196.204.181:8080/pills/1').json())
 #
 #
 # new_pill = {

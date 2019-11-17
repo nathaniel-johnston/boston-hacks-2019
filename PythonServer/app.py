@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 from configparser import ConfigParser
 from mqtt_connection import MQTTConnection
 from twilio_connection import TwilioConnection
@@ -26,6 +27,7 @@ twilio = TwilioConnection(config("twilio"))
 db = DBConnection(config("postgresql"))
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/pills/<patient_id>", methods=['GET'])
@@ -81,7 +83,7 @@ def dispense():
     dose, = db.execute_query("SELECT dose FROM pills WHERE id={};".format(pill_id))[0]
     payload = {
         "pillId": pill_id-1,
-        "numPills": dose
+        "numPills": 1
     }
     publisher.publish(payload)
     return ""
@@ -101,4 +103,4 @@ def remind():
 
 
 if __name__ == '__main__':
-   app.run("localhost", 8000)
+   app.run(host="0.0.0.0", port=8080)
