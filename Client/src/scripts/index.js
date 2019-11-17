@@ -1,25 +1,25 @@
 import '../styles/index.scss';
 
-let payload = JSON.parse(
-    `
-    {
-        "pills": [{
-            "pill_id": "d208c413-eea9-40ae-8b42-097bfe2b06f8",
-            "name": "MOVANTIK",
-            "quantity": 20,
-            "time": "15:00:00",
-            "dose": 1
-        },
-        {
-            "pill_id": "e319d524-ffb0-51bf-9c53-108cgf3c17g9",
-            "name": "FARXIGA",
-            "quantity": 12,
-            "time": "20:00:00",
-            "dose": 2
-        }]
-    }
-    `
-);
+// let payload = JSON.parse(
+//     `
+//     {
+//         "pills": [{
+//             "pill_id": "d208c413-eea9-40ae-8b42-097bfe2b06f8",
+//             "name": "MOVANTIK",
+//             "quantity": 20,
+//             "time": "15:00:00",
+//             "dose": 1
+//         },
+//         {
+//             "pill_id": "e319d524-ffb0-51bf-9c53-108cgf3c17g9",
+//             "name": "FARXIGA",
+//             "quantity": 12,
+//             "time": "20:00:00",
+//             "dose": 2
+//         }]
+//     }
+//     `
+// );
 
 var oldId = null;
 
@@ -87,71 +87,115 @@ $(document).ready(function() {
         </a>
     </li>
     */
+   let payload;
 
-    const tabs_container = $('.tabs-controls');
+    $.ajax({
+        url : "http://104.196.204.181:8080/pills/1",
+        type: "GET",
+        success: function(data, textStatus, jqXHR)
+        {
+            console.log('GET pills Success!');
+            payload = JSON.parse(data);
 
-    payload["pills"].forEach((pill, ind) => {
-        const name = pill.name;
-        const quantity = pill.quantity;
-        const time = pill.time;
-        const dose = pill.dose;
-        console.log(name);
-        // const tabs = $(`.tabs-controls:nth-child(${ind})`);
-        let tab = document.querySelector('.tabs-controls').children[ind].children[0];
-        tab.innerHTML = name;
-        let card = document.querySelector('.cards-container').children[ind];
-        card.querySelector('h1').innerHTML = name;
-        card.querySelector('h1').setAttribute('id', 'name');
-        card.querySelector('p').remove();
-        let card_quantity = document.createElement('p');
-        card_quantity.setAttribute('id', 'quantity');
-        card_quantity.innerHTML = 
-        `
-        <b>Quantity</b>: <span contenteditable="true">${quantity}</span>
-        `;
-        let card_time = document.createElement('p');
-        card_time.setAttribute('id', 'time');
-        card_time.innerHTML = 
-        `
-        <b>Time</b>: <span contenteditable="true">${time}</span>
-        `;
-        let card_dose = document.createElement('p');
-        card_dose.setAttribute('id', 'dose');
-        card_dose.innerHTML = 
-        `
-        <b>Dose</b>: <span contenteditable="true">${dose}</span>
-        `;
-        /*
-                <a><i class="fas fa-arrow-circle-up"></i></a>
+            payload["pills"].forEach((pill, ind) => {
+                const name = pill.name;
+                const quantity = pill.quantity;
+                const time = pill.time;
+                const dose = pill.dose;
+                console.log(name);
+                // const tabs = $(`.tabs-controls:nth-child(${ind})`);
+                let tab = document.querySelector('.tabs-controls').children[ind];
+                if (tab == null) {
+                    tab = document.createElement('li');
+                    tab.className = "tabs-controls__item";
+                    let anchor = document.createElement('a');
+                    anchor.setAttribute('href', '#');
+                    anchor.className = "tabs-controls__link";
+                    anchor.addEventListener('click', animate_card);
+                    anchor.setAttribute('data-id', ind + 1);
 
-        */
-        // let save = document.createElement('a');
-        // let save_icon = document.createElement('i');
-        // save_icon.className = "fas fa-arrow-circle-up fa-lg";
+                    tab.appendChild(anchor);
+                    document.querySelector('.tabs-controls').appendChild(tab);
+                }
+                tab = tab.children[0];
+                tab.innerHTML = name;
 
-        // save.appendChild(save_icon);
-        // let save_wrapper = document.createElement('ul').appendChild(
-        //     document.createElement('li').appendChild(
-        //         save
-        //     )
-        // )
 
-        card.appendChild(card_quantity);
-        card.appendChild(card_time);
-        card.appendChild(card_dose);
-        // card.appendChild(save_wrapper);
+                let card = document.querySelector('.cards-container').children[ind];
+                if (card == null) {
+                    card = document.createElement('div');
+                    card.className = "card";
+                    card.id = ind + 1;
+            
+                    let card_header = document.createElement('h1');
+                    card_header.innerHTML = "Pill Name";
+                    card_header.setAttribute('id', 'name');
+                    card_header.setAttribute('contenteditable', true);
+                    // let card_text = document.createElement('p');
+                    let card_quantity = document.createElement('p');
+            
+                    card.appendChild(card_header);
+                    card.appendChild(card_quantity);
 
-        /*
-        .innerHTML = 
-            `
-            <b>Quantity</b>: ${quantity}<br>
-            <b>Time</b>: ${time}<br>
-            <b>Dose</b>: ${dose}<br>
-            `;
-        */
+                    document.querySelector('.cards-container').appendChild(card);
+                }
+
+                card.querySelector('h1').innerHTML = name;
+                card.querySelector('h1').setAttribute('id', 'name');
+                card.querySelector('p').remove();
+                let card_quantity = document.createElement('p');
+                card_quantity.setAttribute('id', 'quantity');
+                card_quantity.innerHTML = 
+                `
+                <b>Quantity</b>: <span contenteditable="true">${quantity}</span>
+                `;
+                let card_time = document.createElement('p');
+                card_time.setAttribute('id', 'time');
+                card_time.innerHTML = 
+                `
+                <b>Time</b>: <span contenteditable="true">${time}</span>
+                `;
+                let card_dose = document.createElement('p');
+                card_dose.setAttribute('id', 'dose');
+                card_dose.innerHTML = 
+                `
+                <b>Dose</b>: <span contenteditable="true">${dose}</span>
+                `;
+                /*
+                        <a><i class="fas fa-arrow-circle-up"></i></a>
+        
+                */
+                // let save = document.createElement('a');
+                // let save_icon = document.createElement('i');
+                // save_icon.className = "fas fa-arrow-circle-up fa-lg";
+        
+                // save.appendChild(save_icon);
+                // let save_wrapper = document.createElement('ul').appendChild(
+                //     document.createElement('li').appendChild(
+                //         save
+                //     )
+                // )
+        
+                card.appendChild(card_quantity);
+                card.appendChild(card_time);
+                card.appendChild(card_dose);
+                // card.appendChild(save_wrapper);
+        
+                /*
+                .innerHTML = 
+                    `
+                    <b>Quantity</b>: ${quantity}<br>
+                    <b>Time</b>: ${time}<br>
+                    <b>Dose</b>: ${dose}<br>
+                    `;
+                */
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            console.log('Failure!');
+        }
     });
-
-
 
 	$('.tabs-controls__link').click(event, animate_card);
     
@@ -194,6 +238,7 @@ $(document).ready(function() {
 
         let card = document.createElement('div');
         card.className = "card";
+        card.setAttribute('new', 'true');
         card.id = card_count+1;
 
         let card_header = document.createElement('h1');
@@ -250,26 +295,136 @@ $(document).ready(function() {
     $('#upload-pill').click(function (event) {
         let active_card = document.querySelector('.card--current');
 
+        let new_pill = false;
+
         let name = active_card.querySelector('#name').innerHTML;
+        if (active_card.hasAttribute('new')) {
+            new_pill = true;
+        }
+        let pill_id = payload["pills"].find(el => el.name == name);
+        if (pill_id) {
+            pill_id = pill_id.pill_id;
+        }
         let quantity = active_card.querySelector('#quantity').querySelector('span').innerHTML;
         let time = active_card.querySelector('#time').querySelector('span').innerHTML;
         let dose = active_card.querySelector('#dose').querySelector('span').innerHTML;
 
-        console.log(`name: ${name}`);
-        console.log(`quantity: ${quantity}`);
-        console.log(`time: ${time}`);
-        console.log(`dose: ${dose}`);
+        if (new_pill) {
+            let formData = { 
+                "patient_id": 1,
+                "name": name,
+                "quantity": quantity,
+                "time": time,
+                "dose": dose
+            };
+
+            $.ajax({
+                url : "http://104.196.204.181:8080/new/pill",
+                type: "POST",
+                data : JSON.stringify(formData),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data, textStatus, jqXHR)
+                {
+                    // and then update quantity
+                    console.log('POST upload Success!');
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                    console.log('Failure!');
+                }
+            });
+        } else {
+            let formData = { 
+                "patient_id": 1,
+                "name": name,
+                "quantity": quantity,
+                "time": time,
+                "dose": dose
+            };
+
+            $.ajax({
+                url : `http://104.196.204.181:8080/pill/${pill_id}`,
+                type: "PUT",
+                data : JSON.stringify(formData),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data, textStatus, jqXHR)
+                {
+                    // and then update quantity
+                    console.log('POST upload Success!');
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                    console.log('Failure!');
+                }
+            });
+        }
     });
 
     $('#dispense-pill').click(function (event) {
         let active_card = document.querySelector('.card--current');
 
+        let active_id = parseInt(active_card.getAttribute('id'), 10);
+
         let name = active_card.querySelector('#name').innerHTML;
         let dose = active_card.querySelector('#dose').querySelector('span').innerHTML;
 
-        // and then update quantity
+        let formData = {"id": active_id};
 
-        let quantity = active_card.querySelector('#quantity').querySelector('span').innerHTML;
-        active_card.querySelector('#quantity').querySelector('span').innerHTML = quantity - dose;
+        console.log(formData);
+
+        $.ajax({
+            url : "http://104.196.204.181:8080/dispense",
+            type: "POST",
+            data : JSON.stringify(formData),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data, textStatus, jqXHR)
+            {
+                // and then update quantity
+                console.log('POST dispense Success!');
+                let quantity = active_card.querySelector('#quantity').querySelector('span').innerHTML;
+                active_card.querySelector('#quantity').querySelector('span').innerHTML = quantity - dose;
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                console.log('Failure!');
+            }
+        });
+    });
+
+    $('#remind-pill').click(function (event) {
+        let active_card = document.querySelector('.card--current');
+
+        let active_id = parseInt(active_card.getAttribute('id'), 10);
+
+        let name = active_card.querySelector('#name').innerHTML;
+        let dose = active_card.querySelector('#dose').querySelector('span').innerHTML;
+
+        let formData = {"id": active_id};
+
+        console.log(formData);
+
+        $.ajax({
+            url : "http://104.196.204.181:8080/remind",
+            type: "POST",
+            data : JSON.stringify(formData),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data, textStatus, jqXHR)
+            {
+                // and then update quantity
+                console.log('POST remind Success!');
+                let quantity = active_card.querySelector('#quantity').querySelector('span').innerHTML;
+                active_card.querySelector('#quantity').querySelector('span').innerHTML = quantity - dose;
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                console.log('Failure!');
+            }
+        });
     });
 });
