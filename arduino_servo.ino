@@ -13,8 +13,8 @@ void loop() {
 
   int value = Serial.read() - 48;
 
-  int id = value / 3;
-  int numPills = value % 3;
+  int numPills = value <= 3 ? value: value - 4;
+  int id = value <= 3 ? 0 : 1;
 
   servo[id].write(numPills*60);
 }
