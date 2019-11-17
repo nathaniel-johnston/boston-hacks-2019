@@ -1,6 +1,7 @@
 from flask import Flask, request
 from configparser import ConfigParser
 from mqtt_connection import MQTTConnection
+from twilio_connection import TwilioConnection
 import json
 
 
@@ -21,6 +22,7 @@ def config(section, filename='config.ini'):
 
 
 publisher = MQTTConnection(config("mqtt"))
+twilio = TwilioConnection(config("twilio"))
 
 app = Flask(__name__)
 
@@ -34,6 +36,7 @@ def hello_world():
 def publish():
     payload = json.dumps(request.get_json())
     publisher.publish(payload)
+    twilio.send_message("Hi there!", '+15199659801')
     return "Success!"
 
 
