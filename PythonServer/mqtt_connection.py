@@ -6,6 +6,7 @@ class MQTTConnection(object):
 
     def __init__(self, params):
         self.client = mqtt.Client(params["client"])
+        self.client.loop_start()
         self.client.connect(params["host"])
         self.topic = params["topic"]
 
