@@ -367,12 +367,18 @@ $(document).ready(function() {
     $('#dispense-pill').click(function (event) {
         let active_card = document.querySelector('.card--current');
 
-        let active_id = parseInt(active_card.getAttribute('id'), 10);
+        // let active_id = parseInt(active_card.getAttribute('id'), 10);
 
         let name = active_card.querySelector('#name').innerHTML;
+
+        let pill_id = payload["pills"].find(el => el.name == name);
+        if (pill_id) {
+            pill_id = pill_id.pill_id;
+        }
+
         let dose = active_card.querySelector('#dose').querySelector('span').innerHTML;
 
-        let formData = {"id": active_id};
+        let formData = {"id": pill_id};
 
         console.log(formData);
 
@@ -399,12 +405,18 @@ $(document).ready(function() {
     $('#remind-pill').click(function (event) {
         let active_card = document.querySelector('.card--current');
 
-        let active_id = parseInt(active_card.getAttribute('id'), 10);
+        // let active_id = parseInt(active_card.getAttribute('id'), 10);
 
         let name = active_card.querySelector('#name').innerHTML;
+
+        let pill_id = payload["pills"].find(el => el.name == name);
+        if (pill_id) {
+            pill_id = pill_id.pill_id;
+        }
+        
         let dose = active_card.querySelector('#dose').querySelector('span').innerHTML;
 
-        let formData = {"id": active_id};
+        let formData = {"id": pill_id};
 
         console.log(formData);
 
