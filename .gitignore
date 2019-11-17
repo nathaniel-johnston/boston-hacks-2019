@@ -1,1 +1,5 @@
 node_modules/
+PythonServer/venv
+PythonServer/__pycache__
+PythonServer/config.ini
+*/.idea
