@@ -269,7 +269,7 @@ $(document).ready(function() {
 
         // and then update quantity
 
-        let quantity = active_card.querySelector('#quantity').querySelector('span').innerHTML
+        let quantity = active_card.querySelector('#quantity').querySelector('span').innerHTML;
         active_card.querySelector('#quantity').querySelector('span').innerHTML = quantity - dose;
-    })
+    });
 });
