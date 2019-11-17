@@ -386,8 +386,8 @@ $(document).ready(function() {
             {
                 // and then update quantity
                 console.log('POST dispense Success!');
-                let quantity = active_card.querySelector('#quantity').querySelector('span').innerHTML;
-                active_card.querySelector('#quantity').querySelector('span').innerHTML = quantity - dose;
+                // let quantity = active_card.querySelector('#quantity').querySelector('span').innerHTML;
+                // active_card.querySelector('#quantity').querySelector('span').innerHTML = quantity - dose;
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -418,8 +418,6 @@ $(document).ready(function() {
             {
                 // and then update quantity
                 console.log('POST remind Success!');
-                let quantity = active_card.querySelector('#quantity').querySelector('span').innerHTML;
-                active_card.querySelector('#quantity').querySelector('span').innerHTML = quantity - dose;
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
