@@ -15,10 +15,12 @@ class DBConnection(object):
         cur.execute(query)
         return cur.fetchall()
 
-    def execute(self, query):
+    def execute(self, query, returning=False):
         cur = self.conn.cursor()
         cur.execute(query)
         self.conn.commit()
+        if returning:
+            return cur.fetchone()[0]
 
     def close(self):
         self.conn.close()
