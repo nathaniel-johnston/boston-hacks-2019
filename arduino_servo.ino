@@ -10,6 +10,7 @@ int angle[2];
 
 int id = 0;
 boolean pillsTaken = true;
+int startTime;
 
 void setup() {
   Serial.begin(9600);
@@ -48,26 +49,38 @@ void loop() {
     servo[id].write(angle[id]);
     
     pillsTaken = false;
+    startTime = millis();
   }
   
+  
   //Serial.println(getDistance());
-  if(!pillsTaken && getDistance() > 10) {
-    Serial.print(id);
+  if(!pillsTaken && millis() - startTime > 500 && getDistance() > 10) {
     pillsTaken = true;
+    
+    for(int  i = 0; i < 3; i++) {
+      if(getDistance() < 10) {
+        pillsTaken = false;
+      }
+    }
+    
+    if(pillsTaken) {
+      Serial.print(id);
+    }
+    //pillsTaken = true;
   }
   
   //blue guy
   if(buttonPressed(0)) {
     servo[0].write(0);
     angle[0] = 0;
-    pillsTaken = false;
+    //pillsTaken = false;
   }
   
   //black servo
   if(buttonPressed(1)) {
     servo[1].write(0);
     angle[1] = 0;
-    pillsTaken = false;
+    //pillsTaken = false;
   }
 }
 
@@ -87,6 +100,7 @@ bool buttonPressed(int index) {
 int getDistance() {
   int returnTime;
   int distance;
+  
   
   digitalWrite(trig, HIGH);
   delayMicroseconds(10);
