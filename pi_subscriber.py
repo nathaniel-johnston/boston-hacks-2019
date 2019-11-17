@@ -33,5 +33,5 @@ while True:
   if(ser.in_waiting >0):
     takenId = ser.read()
     print("Pills taken")
-    client.publish("pillsTaken", "1")
+    client.publish("pillsTaken", takenId.decode('utf-8'))
 
