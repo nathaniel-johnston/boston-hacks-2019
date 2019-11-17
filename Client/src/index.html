@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Johnson</title>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-  <script src="scripts/index.js"></script>
+  <script src="./scripts/index.js"></script>
+  <script src="https://kit.fontawesome.com/9fe37fc804.js" crossorigin="anonymous"></script>
+  <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <link href="./styles/css/all.min.css" rel="stylesheet"> -->
 </head>
 <body>
-  <h1>👋Hi! I'm Johnson</h1>
-  <p>✨ A lightweight foundation for your next webpack based frontend project.</p>
+  <h1 class="greeting">👋Hi! I'm Johnson</h1>
+  <h2 class="greeting">Here to help you manage your pills! 💊</h2>
   <section class="page">
     <section>
       <ul class="tabs-controls">
@@ -23,82 +26,34 @@
             Tab B
           </a>
         </li>
-        <li class="tabs-controls__item">
-          <a href="#" class="tabs-controls__link" data-id="3">
-            Tab C
-          </a>
-        </li>
-        <li class="tabs-controls__item">
-          <a href="#" class="tabs-controls__link" data-id="4">
-            Tab D
-          </a>
-        </li>
-        <li class="tabs-controls__item">
-          <a href="#" class="tabs-controls__link" data-id="5">
-            Tab E
-          </a>
-        </li>
-        <li class="tabs-controls__item">
-          <a href="#" class="tabs-controls__link" data-id="6">
-            Tab F
-          </a>
-        </li>
       </ul>
     </section>
     <section class="cards-container">
       <div class="card card--current" id="1">
         <h1>A. Lorem ipsum dolor sit amet</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
+          Elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua.
         </p>
       </div>
       <div class="card" id="2">
         <h1>B. Elit, sed do eiusmod</h1>
         <p>
           Elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-        </p>
-      </div>
-      <div class="card" id="3">
-        <h1>C. Consectetur adipisicing elit</h1>
-        <p>
-          Consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat.
-        </p>
-      </div>
-      <div class="card" id="4">
-        <h1>D. Sed do eiusmod</h1>
-        <p>
-          Sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrcaecat cupidatat nonv proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </div>
-      <div class="card" id="5">
-        <h1>E. Ut enim ad minim veniam</h1>
-        <p>
-          Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in vo cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </div>
-      <div class="card" id="6">
-        <h1>F. Labore et dolore magna aliqua</h1>
-        <p>
-          Labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in volupest laborum.
+          tempor incididunt ut labore et dolore magna aliqua. 
         </p>
       </div>
     </section>
-  </section>
+    <nav class="radialnav">
+      <a href="#" class="ellipsis"><i class="fas fa-bars"></i></a>
+      <ul class="menu">
+        <li id="add-pill"><a href="#"><i class="fas fa-file-medical"></i></a></li>
+        <li id="upload-pill"><a href="#"><i class="fas fa-arrow-circle-up"></i></a></li>
+        <li id="dispense-pill"><a href="#"><i class="fas fa-capsules"></i></a></li>
+        <!-- <li><a href="#"><i class="fas fa-cubes"></i></a></li> -->
+        <li><a href="#"><i class="fas fa-envelope"></i></a></li>
+      </ul>
+    </nav>
+  </section>  
 </body>
 </html>
